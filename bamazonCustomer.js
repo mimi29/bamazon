@@ -56,7 +56,7 @@ function startBuying() {
           }
         }
         var selectedProduct = res[idx].product_name;
-        if (selectedQuantity < res[idx].stock_quantity) {
+        if (selectedQuantity <= res[idx].stock_quantity) {
           console.log("Your total for " + "(" + answer.quantity + ")" + " - " + res[idx].product_name + " is: $" + res[idx].price.toFixed(2) * selectedQuantity);
           connection.query("UPDATE products SET ? WHERE ?", [{
             stock_quantity: res[idx].stock_quantity - selectedQuantity
@@ -67,7 +67,7 @@ function startBuying() {
           });
         }
         else {
-          console.log("Sorry, We do not have enough inventory at this time, we only have " + res[chosenId].StockQuantity + " in our Inventory.");
+          console.log("Sorry, there is Insufficient quantity at this time, we only have " + res[idx].stock_quantity + " in our Inventory.");
           startBuying();
         }
       })
